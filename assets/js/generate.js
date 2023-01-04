@@ -9,6 +9,18 @@ let hour4 = $('#4');
 let hour5 = $("#5")
 let time = moment();
 
+//  function to display date and time at top of page Adding date and time in real-time
+// need to correspond time with the entries and save into local storage
+`use strict`;
+function refreshTime() {
+  const timeDisplay = document.getElementById("time");
+  const dateString = new Date().toLocaleString();
+  const formattedString = dateString.replace(", ", " - ");
+  timeDisplay.textContent = formattedString;
+}
+ setInterval(refreshTime, 1000);
+
+// function 
 function setPlanner() {
     $("currentDay").text(moment().format("dddd, MMMM, Do YYYY"));
     $("time-block").each(function() {
@@ -21,37 +33,27 @@ function setPlanner() {
 });
 
 }
-// Adding date and time in real-time
-`use strict`;
-function refreshTime() {
-  const timeDisplay = document.getElementById("time");
-  const dateString = new Date().toLocaleString();
-  const formattedString = dateString.replace(", ", " - ");
-  timeDisplay.textContent = formattedString;
-}
-  setInterval(refreshTime, 1000);
-
+// Need key and value for localStorage
 setPlanner();
 var saveButton = $(".saveBtn");
 console.log (saveButton);
 
 saveButton.on('click', function(){
-    let time =$(this).parent().attr('id');
-    let schedule = $(this).siblings('.schedule').val();
+    // Added console.log to verify save functionality
+    console.log("Saving");
+    let time =$(this).siblings('.description').attr('id');
+    console.log(time)
+    let schedule = $(this).siblings('.description').val();
+    console.log(schedule);
     localStorage.setItem(time, schedule);
 });
 
 function pastPresentFuture() {
     hour = time.hours();
-    hour = 9
-    hour = 10
-    hour = 11
-    hour = 12
-    hour = 13
     $('.time-block input').each(function () {
         let thisHour = parseInt($(this).attr('id'));
         console.log({thisHour,hour, id:$(this).attr('id')})
-
+// Need to add color change for past and present
         if (thisHour > hour) {
             $(this).addClass('future');
         }
@@ -65,4 +67,13 @@ function pastPresentFuture() {
         }
     })
 }
+// Add clear my schedule function and add listeners for the click event
+       
+    $("#scheduleClear").click(function() {
+        localStorage.clear();
+        location.reload();
+    }); 
+      
+
+    
 pastPresentFuture();
