@@ -1,6 +1,6 @@
 # SMU-Mod-5-Challenge - Daily Planner
 
-## URL:
+## URL: https://vulcandthgrip.github.io/SMU-Mod-5-Challenge/
 
 The purpose of the challenge was to develop and depoy a daily planner that could do the following:
 
